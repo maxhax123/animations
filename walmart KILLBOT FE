@@ -29,10 +29,10 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 PsychoButton.Parent = screenGui
 
 local animation1 = Instance.new("Animation")
-animation1.AnimationId = "rbxassetid://119743886347094" -- First idle animation
+animation1.AnimationId = "rbxassetid://204328711" -- First idle animation
 
 local animationWalk = Instance.new("Animation")
-animationWalk.AnimationId = "rbxassetid://110649877835282" -- Walk animation
+animationWalk.AnimationId = "rbxassetid://204328711" -- Walk animation
 
 local animationJump = Instance.new("Animation")
 animationJump.AnimationId = "rbxassetid://165167557" -- Jump animation
@@ -41,7 +41,7 @@ local animationFall = Instance.new("Animation")
 animationFall.AnimationId = "rbxassetid://97170520" -- Fall animation
 
 local newIdleAnimation = Instance.new("Animation")
-newIdleAnimation.AnimationId = "rbxassetid://119743886347094" -- New idle animation
+newIdleAnimation.AnimationId = "rbxassetid://204328711" -- New idle animation
 
 local humanoid = player.Character:WaitForChild("Humanoid")
 local idleTrack = humanoid:LoadAnimation(animation1)
