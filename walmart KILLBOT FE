@@ -1,8 +1,8 @@
 -- made by Muscle_legends2021 and reanimated by diggadoodog
 
 local PsychoButton = Instance.new("TextButton")
-PsychoButton.Name = "killbot"
-PsychoButton.Text = "Fan Kbot Anim"
+PsychoButton.Name = "sillybot"
+PsychoButton.Text = "sillybot Anim"
 PsychoButton.Size = UDim2.new(0, 200, 0, 50)
 PsychoButton.Position = UDim2.new(0.5, -100, 0.5, -25)
 PsychoButton.BackgroundColor3 = Color3.fromRGB(139, 0, 0) -- Dark red when toggled off
@@ -29,7 +29,7 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 PsychoButton.Parent = screenGui
 
 local animation1 = Instance.new("Animation")
-animation1.AnimationId = "rbxassetid://204328711" -- First idle animation
+animation1.AnimationId = "rbxassetid://35634514" -- First idle animation
 
 local animationWalk = Instance.new("Animation")
 animationWalk.AnimationId = "rbxassetid://204328711" -- Walk animation
@@ -41,7 +41,7 @@ local animationFall = Instance.new("Animation")
 animationFall.AnimationId = "rbxassetid://97170520" -- Fall animation
 
 local newIdleAnimation = Instance.new("Animation")
-newIdleAnimation.AnimationId = "rbxassetid://204328711" -- New idle animation
+newIdleAnimation.AnimationId = "rbxassetid://35634514" -- New idle animation
 
 local humanoid = player.Character:WaitForChild("Humanoid")
 local idleTrack = humanoid:LoadAnimation(animation1)
