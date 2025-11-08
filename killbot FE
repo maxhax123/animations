@@ -2,7 +2,7 @@
 
 local PsychoButton = Instance.new("TextButton")
 PsychoButton.Name = "killbot"
-PsychoButton.Text = "Fan Kbot Anim"
+PsychoButton.Text = "KILLBOT"
 PsychoButton.Size = UDim2.new(0, 200, 0, 50)
 PsychoButton.Position = UDim2.new(0.5, -100, 0.5, -25)
 PsychoButton.BackgroundColor3 = Color3.fromRGB(139, 0, 0) -- Dark red when toggled off
