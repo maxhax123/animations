@@ -60,8 +60,8 @@ local function playIdle()
 		while psychoActive do
 			if humanoid.MoveDirection.Magnitude == 0 and humanoid:GetState() ~= Enum.HumanoidStateType.Jumping and humanoid:GetState() ~= Enum.HumanoidStateType.Freefall then
 				-- Play the first idle animation
-				idleTrack:Play(0.1, 1, 0.1)
-				task.wait(1)
+				idleTrack:Play(0.1, 1, 1)
+				task.wait(0.01)
  -- Ensure total wait time for the cycle is 3 seconds
 			else
 				task.wait(0.1)
