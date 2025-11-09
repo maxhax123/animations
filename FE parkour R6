@@ -5,9 +5,9 @@ PsychoButton.Name = "PK"
 PsychoButton.Text = "Parkour anims"
 PsychoButton.Size = UDim2.new(0, 200, 0, 50)
 PsychoButton.Position = UDim2.new(0.5, -100, 0.5, -25)
-PsychoButton.BackgroundColor3 = Color3.fromRGB(139, 0, 0) -- Dark red when toggled off
+PsychoButton.BackgroundColor3 = Color3.fromRGB(139, 0, 0)
 PsychoButton.TextColor3 = Color3.new(1, 1, 1)
-PsychoButton.Font = Enum.Font.Arcade -- Scarier font
+PsychoButton.Font = Enum.Font.Arcade
 PsychoButton.TextSize = 24
 PsychoButton.BorderSizePixel = 2
 PsychoButton.BorderColor3 = Color3.new(0, 0, 0)
@@ -24,24 +24,24 @@ UIStroke.Parent = PsychoButton
 
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
-screenGui.ResetOnSpawn = false -- Prevent GUI from disappearing on respawn
+screenGui.ResetOnSpawn = false
 screenGui.Parent = player:WaitForChild("PlayerGui")
 PsychoButton.Parent = screenGui
 
 local animation1 = Instance.new("Animation")
-animation1.AnimationId = "rbxassetid://21633130" -- First idle animation
+animation1.AnimationId = "rbxassetid://21633130"
 
 local animationWalk = Instance.new("Animation")
-animationWalk.AnimationId = "rbxassetid://252557606" -- Walk animation
+animationWalk.AnimationId = "rbxassetid://252557606"
 
 local animationJump = Instance.new("Animation")
-animationJump.AnimationId = "rbxassetid://220512718" -- Jump animation
+animationJump.AnimationId = "rbxassetid://220512718"
 
 local animationFall = Instance.new("Animation")
-animationFall.AnimationId = "rbxassetid://233322916" -- Fall animation
+animationFall.AnimationId = "rbxassetid://233322916"
 
 local newIdleAnimation = Instance.new("Animation")
-newIdleAnimation.AnimationId = "rbxassetid://21633130" -- New idle animation
+newIdleAnimation.AnimationId = "rbxassetid://21633130"
 
 local humanoid = player.Character:WaitForChild("Humanoid")
 local idleTrack = humanoid:LoadAnimation(animation1)
@@ -53,16 +53,14 @@ local newIdleTrack = humanoid:LoadAnimation(newIdleAnimation)
 local psychoActive = false
 local runningConnection
 local jumpPlaying = false
+local fallLoopConnection
 
--- Function to alternate idle animations
 local function playIdle()
 	task.spawn(function()
 		while psychoActive do
 			if humanoid.MoveDirection.Magnitude == 0 and humanoid:GetState() ~= Enum.HumanoidStateType.Jumping and humanoid:GetState() ~= Enum.HumanoidStateType.Freefall then
-				-- Play the first idle animation
 				idleTrack:Play(0.1, 1, 1)
 				task.wait(0.01)
- -- Ensure total wait time for the cycle is 3 seconds
 			else
 				task.wait(0.1)
 			end
@@ -79,9 +77,9 @@ PsychoButton.MouseButton1Click:Connect(function()
 	psychoActive = not psychoActive
 
 	if psychoActive then
-		PsychoButton.BackgroundColor3 = Color3.fromRGB(0, 100, 0) -- Dark green when toggled on
-
-		humanoid.WalkSpeed = 30 -- Set walk speed when activated
+		PsychoButton.BackgroundColor3 = Color3.fromRGB(0, 100, 0)
+		humanoid.WalkSpeed = 30
+		humanoid.JumpPower = 70
 
 		playIdle()
 
@@ -110,22 +108,40 @@ PsychoButton.MouseButton1Click:Connect(function()
 			elseif newState == Enum.HumanoidStateType.Freefall then
 				stopIdle()
 				jumpTrack:Stop()
-				if not fallTrack.IsPlaying then
-					fallTrack:Play()
+
+				if fallLoopConnection then
+					fallLoopConnection:Disconnect()
+					fallLoopConnection = nil
 				end
+wait(0.3)
+				fallTrack:Play()
+
+				-- Keep replaying fall animation until landed
+				fallLoopConnection = fallTrack.Stopped:Connect(function()
+					if humanoid:GetState() == Enum.HumanoidStateType.Freefall then
+						fallTrack:Play()
+					end
+				end)
+
 			elseif newState == Enum.HumanoidStateType.Landed then
+				if fallLoopConnection then
+					fallLoopConnection:Disconnect()
+					fallLoopConnection = nil
+				end
 				fallTrack:Stop()
 				playIdle()
 			end
 		end)
 	else
-		PsychoButton.BackgroundColor3 = Color3.fromRGB(139, 0, 0) -- Dark red when toggled off
-		humanoid.WalkSpeed = 16 -- Reset walk speed
+		PsychoButton.BackgroundColor3 = Color3.fromRGB(139, 0, 0)
+		humanoid.WalkSpeed = 16
+		humanoid.JumpPower = 50
 		stopIdle()
 		walkAnimTrack:Stop()
 		jumpTrack:Stop()
 		fallTrack:Stop()
 		if runningConnection then runningConnection:Disconnect() end
+		if fallLoopConnection then fallLoopConnection:Disconnect() end
 	end
 end)
 
@@ -136,6 +152,4 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
 	jumpTrack = humanoid:LoadAnimation(animationJump)
 	fallTrack = humanoid:LoadAnimation(animationFall)
 	newIdleTrack = humanoid:LoadAnimation(newIdleAnimation)
-fallTrack.Looped = true
-fallTrack.Priority = Enum.AnimationPriority.Movement
 end)
