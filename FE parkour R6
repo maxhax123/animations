@@ -136,4 +136,5 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
 	jumpTrack = humanoid:LoadAnimation(animationJump)
 	fallTrack = humanoid:LoadAnimation(animationFall)
 	newIdleTrack = humanoid:LoadAnimation(newIdleAnimation)
+fallTrack.Looped = true
 end)
