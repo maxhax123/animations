@@ -137,4 +137,5 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
 	fallTrack = humanoid:LoadAnimation(animationFall)
 	newIdleTrack = humanoid:LoadAnimation(newIdleAnimation)
 fallTrack.Looped = true
+fallTrack.Priority = Enum.AnimationPriority.Movement
 end)
