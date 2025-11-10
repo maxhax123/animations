@@ -1,0 +1,147 @@
+
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local ContextActionService = game:GetService("ContextActionService")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Config
+local TOGGLE_ACTION_NAME = "ToggleLeftHandMenu"
+local TOGGLE_KEYCODES = { Enum.KeyCode.ButtonX, Enum.KeyCode.M }
+local MENU_SIZE = UDim2.new(0, 300, 0, 220)
+local SCROLL_STEP = 40
+
+-- Module registry
+local MenuFunctions = {}
+local menuGui, menuScroll, menuEnabled = nil, nil, false
+
+-- AddButton API
+function AddButton(name, codeString)
+    MenuFunctions[name] = codeString
+    if menuScroll then
+        local item = Instance.new("TextButton")
+        item.Size = UDim2.new(1,-12,0,50)
+        item.BackgroundColor3 = Color3.fromRGB(35,35,35)
+        item.BorderSizePixel = 0
+        item.Text = name
+        item.Font = Enum.Font.SourceSansBold
+        item.TextSize = 20
+        item.TextColor3 = Color3.new(1,1,1)
+        item.AutoButtonColor = true
+        item.Parent = menuScroll
+
+        item.MouseEnter:Connect(function() item.BackgroundColor3 = Color3.fromRGB(60,60,60) end)
+        item.MouseLeave:Connect(function() item.BackgroundColor3 = Color3.fromRGB(35,35,35) end)
+
+        item.MouseButton1Click:Connect(function()
+            local code = MenuFunctions[name]
+            if code then
+                local success, err = pcall(function() loadstring(code)() end)
+                if not success then warn("Error running "..name..": "..err) end
+            end
+        end)
+
+        local layout = menuScroll:FindFirstChildOfClass("UIListLayout")
+        if layout then
+            menuScroll.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y + 10)
+        end
+    end
+end
+
+-- Create the menu GUI (no weld/part, stays in PlayerGui)
+-- Create the menu GUI (centered on screen)
+local function createMenu()
+    if menuGui then menuGui:Destroy() end
+
+    menuGui = Instance.new("ScreenGui")
+    menuGui.Name = "LeftHandMenu"
+    menuGui.ResetOnSpawn = false -- stays after death
+    menuGui.IgnoreGuiInset = true
+    menuGui.Parent = playerGui
+    menuGui.Enabled = menuEnabled
+
+    local frame = Instance.new("Frame")
+    frame.Size = MENU_SIZE
+    -- Center on screen
+    frame.Position = UDim2.new(0.5, -MENU_SIZE.X.Offset/2, 0.5, -MENU_SIZE.Y.Offset/2)
+    frame.BackgroundColor3 = Color3.fromRGB(20,20,20)
+    frame.BackgroundTransparency = 0.25
+    frame.BorderSizePixel = 0
+    frame.Parent = menuGui
+
+    local title = Instance.new("TextLabel")
+    title.Size = UDim2.new(1,0,0,28)
+    title.BackgroundTransparency = 1
+    title.Text = "Left Menu"
+    title.Font = Enum.Font.SourceSansBold
+    title.TextSize = 18
+    title.TextColor3 = Color3.new(1,1,1)
+    title.Parent = frame
+
+    menuScroll = Instance.new("ScrollingFrame")
+    menuScroll.Name = "MenuScroll"
+    menuScroll.Size = UDim2.new(1,-8,1,-36)
+    menuScroll.Position = UDim2.new(0,4,0,32)
+    menuScroll.BackgroundTransparency = 1
+    menuScroll.ScrollBarThickness = 8
+    menuScroll.CanvasSize = UDim2.new(0,0,0,0)
+    menuScroll.Parent = frame
+
+    local layout = Instance.new("UIListLayout")
+    layout.Parent = menuScroll
+    layout.SortOrder = Enum.SortOrder.LayoutOrder
+    layout.Padding = UDim.new(0,6)
+
+    -- Add existing buttons
+    for name, code in pairs(MenuFunctions) do
+        AddButton(name, code)
+    end
+end
+
+
+-- Toggle menu visibility
+local function toggleMenu()
+    if menuGui then
+        menuEnabled = not menuEnabled
+        menuGui.Enabled = menuEnabled
+    end
+end
+
+-- Bind toggle keys
+pcall(function() ContextActionService:UnbindAction(TOGGLE_ACTION_NAME) end)
+ContextActionService:BindAction(TOGGLE_ACTION_NAME,
+    function(_, state)
+        if state == Enum.UserInputState.Begin then toggleMenu() end
+    end,
+    false,
+    unpack(TOGGLE_KEYCODES)
+)
+
+-- Scroll support
+UserInputService.InputChanged:Connect(function(input)
+    if menuScroll and menuEnabled and input.UserInputType == Enum.UserInputType.MouseWheel then
+        local delta = input.Position.Z
+        menuScroll.CanvasPosition = menuScroll.CanvasPosition + Vector2.new(0,-delta*SCROLL_STEP)
+    end
+end)
+
+-- Initialize menu
+createMenu()
+
+-- ===== buttons =====
+AddButton("IY", [[loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()]])
+AddButton("NA", [[loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/main/Source.lua"))()]])
+AddButton("Portal Gun", [[loadstring(game:HttpGet('https://raw.githubusercontent.com/randomguy194/dollar-tree-portal-gun/refs/heads/main/Budget%20Portal%20Gun%202.0%20(VR).txt'))()]])
+AddButton("FE", [[loadstring(game:HttpGet('https://raw.githubusercontent.com/jizkss/Joca-hub-updt/refs/heads/main/Jocahubupd'))()]])
+AddButton("FE SCP-096 R6", [[loadstring(game:HttpGet("https://pastefy.app/YsJgITXR/raw"))()]])
+AddButton("FE ZOMBIE R6", [[loadstring(game:HttpGet("https://pastefy.app/JOWniO6o/raw"))()]])
+AddButton("FE FIGHTER R6", [[loadstring(game:HttpGet("https://pastefy.app/wxVAgZpT/raw"))()]])
+AddButton("FE KILLER R6", [[loadstring(game:HttpGet("https://pastefy.app/riYch0rX/raw"))()]])
+AddButton("FE PSYCHO R6", [[loadstring(game:HttpGet("https://pastefy.app/YJITpCRA/raw"))()]])
+AddButton("FE SILLYBOT R6", [[loadstring(game:HttpGet("https://raw.githubusercontent.com/maxhax123/animations/refs/heads/main/walmart%20KILLBOT%20FE"))()]])
+AddButton("FE KILLBOT R6", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/killbot%20FE"))()]])
+AddButton("FE 2013 ANIMS R6", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/2013%20anims%20FE"))()]])
+AddButton("FE PARKOUR ANIMS R6", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/FE%20parkour%20R6"))()]])
+AddButton("FE QUEEN R6", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/FE%20PRINCESS%20R6"))()]])
+AddButton("FE SCP-096 R15", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/R15%20FE%20SCP-096"))()]])
