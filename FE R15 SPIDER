@@ -29,7 +29,7 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 PsychoButton.Parent = screenGui
 
 local animation1 = Instance.new("Animation")
-animation1.AnimationId = "rbxassetid://80532977539303"
+animation1.AnimationId = "rbxassetid://76993911030490"
 
 local animationWalk = Instance.new("Animation")
 animationWalk.AnimationId = "rbxassetid://89356423918695"
@@ -41,7 +41,7 @@ local animationFall = Instance.new("Animation")
 animationFall.AnimationId = "rbxassetid://121730289076162"
 
 local newIdleAnimation = Instance.new("Animation")
-newIdleAnimation.AnimationId = "rbxassetid://80532977539303"
+newIdleAnimation.AnimationId = "rbxassetid://76993911030490"
 
 local humanoid = player.Character:WaitForChild("Humanoid")
 local idleTrack = humanoid:LoadAnimation(animation1)
@@ -113,7 +113,7 @@ PsychoButton.MouseButton1Click:Connect(function()
 					fallLoopConnection:Disconnect()
 					fallLoopConnection = nil
 				end
-wait(0.3)
+
 				fallTrack:Play()
 
 				-- Keep replaying fall animation until landed
