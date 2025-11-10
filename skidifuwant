@@ -73,7 +73,7 @@ local function createMenu()
     local title = Instance.new("TextLabel")
     title.Size = UDim2.new(1,0,0,28)
     title.BackgroundTransparency = 1
-    title.Text = "Left Menu"
+    title.Text = "MAXH@X MENU FE"
     title.Font = Enum.Font.SourceSansBold
     title.TextSize = 18
     title.TextColor3 = Color3.new(1,1,1)
