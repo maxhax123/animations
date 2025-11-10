@@ -147,3 +147,4 @@ AddButton("FE PARKOUR ANIMS R6", [[loadstring(game:HttpGet("https://github.com/m
 AddButton("FE QUEEN R6", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/FE%20PRINCESS%20R6"))()]])
 AddButton("FE SCP-096 R15", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/R15%20FE%20SCP-096"))()]])
 AddButton("FE SCARY R15", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/FE%20SCARY%20R15"))()]])
+AddButton("FE SPIDER R15", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/FE%20R15%20SPIDER"))()]])
