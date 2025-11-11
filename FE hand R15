@@ -28,7 +28,7 @@ listLayout.VerticalAlignment = Enum.VerticalAlignment.Top
 local animChoices = {
 	["Idle"] = "rbxassetid://77423395801230", -- formerly Fall
 	["Wave"] = "rbxassetid://79631923269131",
-	["Dislike"] = "rbxassetid://80851161781256",
+	["Thumbs down"] = "rbxassetid://80851161781256",
 	["Pat"] = "rbxassetid://101118547220849",
 	["C'mere"] = "rbxassetid://127772514180203",
 	["Grab"] = "rbxassetid://82319277144978",
@@ -37,7 +37,9 @@ local animChoices = {
 	["Card Slam"] = "rbxassetid://91250938512665",
 	["Take da L"] = "rbxassetid://117914592030402",
 	["Point"] = "rbxassetid://71439424797320",
-	["No"] = "rbxassetid://78532877327209"
+	["Thumbs up"] = "rbxassetid://123040549367562",
+	["Flick"] = "rbxassetid://88992279344579",
+	["No"] = "rbxassetid://88444249230377"
 }
 
 local selectedAnimId = animChoices["Idle"]
