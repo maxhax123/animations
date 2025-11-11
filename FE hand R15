@@ -10,8 +10,8 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 
 -- Selector frame
 local selectorFrame = Instance.new("Frame")
-selectorFrame.Size = UDim2.new(0, 180, 0, 380)
-selectorFrame.Position = UDim2.new(0, 10, 0.5, -190)
+selectorFrame.Size = UDim2.new(0, 180, 0, 485)
+selectorFrame.Position = UDim2.new(0, 5, 0.5, -180)
 selectorFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 selectorFrame.BorderSizePixel = 2
 selectorFrame.BorderColor3 = Color3.new(0, 0, 0)
