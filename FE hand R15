@@ -1,0 +1,96 @@
+-- GUI + dummy reanimate with "Idle" at top (formerly Fall)
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+-- ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.ResetOnSpawn = true
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Selector frame
+local selectorFrame = Instance.new("Frame")
+selectorFrame.Size = UDim2.new(0, 180, 0, 380)
+selectorFrame.Position = UDim2.new(0, 10, 0.5, -190)
+selectorFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+selectorFrame.BorderSizePixel = 2
+selectorFrame.BorderColor3 = Color3.new(0, 0, 0)
+selectorFrame.Parent = screenGui
+
+local listLayout = Instance.new("UIListLayout")
+listLayout.Parent = selectorFrame
+listLayout.Padding = UDim.new(0, 5)
+listLayout.FillDirection = Enum.FillDirection.Vertical
+listLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+listLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+
+-- Animation choices (Fall moved to top and renamed "Idle")
+local animChoices = {
+	["Idle"] = "rbxassetid://132800001587307", -- formerly Fall
+	["Wave"] = "rbxassetid://79631923269131",
+	["Dislike"] = "rbxassetid://80851161781256",
+	["Pat"] = "rbxassetid://101118547220849",
+	["C'mere"] = "rbxassetid://127772514180203",
+	["Grab"] = "rbxassetid://82319277144978",
+	["Yap"] = "rbxassetid://81563764794164",
+	["Ok"] = "rbxassetid://100188963456227",
+	["Card Slam"] = "rbxassetid://91250938512665",
+	["Take da L"] = "rbxassetid://117914592030402",
+	["Point"] = "rbxassetid://71439424797320",
+	["No"] = "rbxassetid://78532877327209"
+}
+
+local selectedAnimId = animChoices["Idle"]
+
+-- Load animation helper
+local function loadAnim(hum, id)
+	local a = Instance.new("Animation")
+	a.AnimationId = id
+	local track = hum:LoadAnimation(a)
+	track.Priority = Enum.AnimationPriority.Action
+	return track
+end
+
+-- Dummy reanimate
+local rootPart = humanoid.RootPart or character:WaitForChild("HumanoidRootPart")
+local rootClone = rootPart:Clone()
+rootClone.Transparency = 1
+rootClone.Parent = character
+rootClone.Name = "RootClone"
+rootClone.Anchored = true
+
+-- Create buttons
+local idleTrack
+for name, id in pairs(animChoices) do
+	local btn = Instance.new("TextButton")
+	btn.Text = name
+	btn.Size = UDim2.new(1, -10, 0, 30)
+	btn.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+	btn.TextColor3 = Color3.new(1, 1, 1)
+	btn.Font = Enum.Font.Arcade
+	btn.TextSize = 20
+	btn.BorderSizePixel = 1
+	btn.BorderColor3 = Color3.new(0, 0, 0)
+	btn.Parent = selectorFrame
+
+	btn.MouseButton1Click:Connect(function()
+		selectedAnimId = id
+		for _, child in ipairs(selectorFrame:GetChildren()) do
+			if child:IsA("TextButton") then
+				child.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+			end
+		end
+		btn.BackgroundColor3 = Color3.fromRGB(90, 0, 90)
+
+		-- Stop previous idle if exists
+		if idleTrack then idleTrack:Stop() end
+
+		-- Play selected animation once
+		idleTrack = loadAnim(humanoid, id)
+		idleTrack:Play(0.1, 1, 1)
+	end)
+end
+
+-- Play default idle (formerly Fall)
+idleTrack = loadAnim(humanoid, selectedAnimId)
+idleTrack:Play(0.1, 1, 1)
