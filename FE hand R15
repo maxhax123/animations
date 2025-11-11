@@ -26,7 +26,7 @@ listLayout.VerticalAlignment = Enum.VerticalAlignment.Top
 
 -- Animation choices (Fall moved to top and renamed "Idle")
 local animChoices = {
-	["Idle"] = "rbxassetid://132800001587307", -- formerly Fall
+	["Idle"] = "rbxassetid://77423395801230", -- formerly Fall
 	["Wave"] = "rbxassetid://79631923269131",
 	["Dislike"] = "rbxassetid://80851161781256",
 	["Pat"] = "rbxassetid://101118547220849",
