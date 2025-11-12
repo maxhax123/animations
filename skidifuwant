@@ -44,7 +44,7 @@ function AddButton(name, codeString)
 
         local layout = menuScroll:FindFirstChildOfClass("UIListLayout")
         if layout then
-            menuScroll.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y + 10)
+            menuScroll.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y + 110)
         end
     end
 end
@@ -81,7 +81,7 @@ local function createMenu()
 
     menuScroll = Instance.new("ScrollingFrame")
     menuScroll.Name = "MenuScroll"
-    menuScroll.Size = UDim2.new(1,-8,1,-36)
+    menuScroll.Size = UDim2.new(1,-8,1,-40)
     menuScroll.Position = UDim2.new(0,4,0,32)
     menuScroll.BackgroundTransparency = 1
     menuScroll.ScrollBarThickness = 8
