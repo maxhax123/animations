@@ -54,12 +54,7 @@ local function loadAnim(hum, id)
 end
 
 -- Dummy reanimate
-local rootPart = humanoid.RootPart or character:WaitForChild("HumanoidRootPart")
-local rootClone = rootPart:Clone()
-rootClone.Transparency = 1
-rootClone.Parent = character
-rootClone.Name = "RootClone"
-rootClone.Anchored = true
+
 
 -- Create buttons
 local idleTrack
