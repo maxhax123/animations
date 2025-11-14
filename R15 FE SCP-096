@@ -91,6 +91,8 @@ PsychoButton.MouseButton1Click:Connect(function()
 			if psychoActive and humanoid.MoveDirection.Magnitude > 0 and humanoid:GetState() ~= Enum.HumanoidStateType.Jumping and humanoid:GetState() ~= Enum.HumanoidStateType.Freefall then
 				stopIdle()
 				if not walkAnimTrack.IsPlaying then
+					humanoid.WalkSpeed = 5 -- Set walk speed when activated
+					humanoid.JumpPower = 55
 					walkAnimTrack:Play()
 				end
 			else
@@ -233,6 +235,8 @@ PsychoButton.MouseButton1Click:Connect(function()
 			if psychoActive and humanoid.MoveDirection.Magnitude > 0 and humanoid:GetState() ~= Enum.HumanoidStateType.Jumping and humanoid:GetState() ~= Enum.HumanoidStateType.Freefall then
 				stopIdle()
 				if not walkAnimTrack.IsPlaying then
+					humanoid.WalkSpeed = 30 -- Set walk speed when activated
+					humanoid.JumpPower = 70
 					walkAnimTrack:Play()
 				end
 			else
