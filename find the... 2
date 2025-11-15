@@ -1,0 +1,18 @@
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+local player = game.Players.LocalPlayer
+local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+if not root then return end
+
+local descendants = workspace:GetDescendants()
+for i = 1, #descendants do
+    local obj = descendants[i]
+    if obj:IsA("BasePart") then
+        local touch = obj:FindFirstChildOfClass("TouchTransmitter")
+        if touch then
+            firetouchinterest(root, obj, 0)
+            firetouchinterest(root, obj, 1)
+        end
+    end
+end
