@@ -151,3 +151,34 @@ AddButton("FE SCP-096 R15", [[loadstring(game:HttpGet("https://github.com/maxhax
 AddButton("FE SCARY R15", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/FE%20SCARY%20R15"))()]])
 AddButton("FE SPIDER R15", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/FE%20R15%20SPIDER"))()]])
 AddButton("FE HAND R15", [[loadstring(game:HttpGet("https://github.com/maxhax123/animations/raw/refs/heads/main/FE%20hand%20R15"))()]])
+
+
+-- Mobile Support: Add a Draggable Float Button
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+local function createMobileButton()
+    local mobileBtn = Instance.new("ImageButton")
+    mobileBtn.Name = "MobileToggle"
+    mobileBtn.Size = UDim2.new(0, 60, 0, 60)
+    mobileBtn.Position = UDim2.new(0.8, 0, 0.5, 0)
+    mobileBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    mobileBtn.BorderSizePixel = 0
+    mobileBtn.Active = true
+    mobileBtn.Draggable = true -- Built-in Roblox drag support
+    mobileBtn.Parent = menuGui
+
+    local uiCorner = Instance.new("UICorner")
+    uiCorner.CornerRadius = UDim.new(0.5, 0)
+    uiCorner.Parent = mobileBtn
+
+    -- Toggle the menu when clicked
+    mobileBtn.MouseButton1Click:Connect(function()
+        toggleMenu()
+    end)
+end
+
+-- Call this after creating the GUI
+if UserInputService.TouchEnabled then
+    createMobileButton()
+end
