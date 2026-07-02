@@ -157,6 +157,13 @@ AddButton("FE HAND R15", [[loadstring(game:HttpGet("https://github.com/maxhax123
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
+    menuui = Instance.new("ScreenGui")
+    menuui.Name = "LeftHandMenuBTN"
+    menuui.ResetOnSpawn = false -- stays after death
+    menuui.IgnoreGuiInset = true
+    menuui.Parent = playerGui
+    
+
 local function createMobileButton()
     local mobileBtn = Instance.new("ImageButton")
     mobileBtn.Name = "MobileToggle"
@@ -166,7 +173,7 @@ local function createMobileButton()
     mobileBtn.BorderSizePixel = 0
     mobileBtn.Active = true
     mobileBtn.Draggable = true -- Built-in Roblox drag support
-    mobileBtn.Parent = menuGui
+    mobileBtn.Parent = menuui
 
     local uiCorner = Instance.new("UICorner")
     uiCorner.CornerRadius = UDim.new(0.5, 0)
