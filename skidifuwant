@@ -178,7 +178,5 @@ local function createMobileButton()
     end)
 end
 
--- Call this after creating the GUI
-if UserInputService.TouchEnabled then
     createMobileButton()
-end
+
