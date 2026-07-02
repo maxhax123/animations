@@ -44,7 +44,7 @@ function AddButton(name, codeString)
 
         local layout = menuScroll:FindFirstChildOfClass("UIListLayout")
         if layout then
-            menuScroll.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y + 110)
+            menuScroll.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y + 180)
         end
     end
 end
